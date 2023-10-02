@@ -1,12 +1,11 @@
 Package: fetchNOMe
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
-Version: 1.0
+Title: Package for fast and convenient retrieval of NOMe-seq data from BAM files.
+Version: 0.1
 Date: 2023-10-02
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one or more full sentences.
-License: GPL (>= 2)
+Authors@R: person(given = "Evgeniy A.", family="Ozonov", email = "evgeniy.ozonov@fmi.ch", role = c("aut", "cre"))
+Description: This R package is tailored for fast and convenient retrieval of NOMe-seq data from BAM files aligned with QuasR, Bismark and biscuit. 
+License: MIT + file LICENSE
 Imports: 
     checkmate,
     parallel,
