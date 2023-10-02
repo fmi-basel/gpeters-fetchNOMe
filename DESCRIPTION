@@ -1,0 +1,37 @@
+Package: fetchNOMe
+Type: Package
+Title: What the Package Does in One 'Title Case' Line
+Version: 1.0
+Date: 2023-10-02
+Author: Your Name
+Maintainer: Your Name <your@email.com>
+Description: One paragraph description of what the package does as one or more full sentences.
+License: GPL (>= 2)
+Imports: 
+    checkmate,
+    parallel,
+    Rcpp (>= 0.12.17),
+    Rsamtools (>= 2.13.1),
+    stats,
+    stringr,
+    tibble,
+    truncdist,
+    GenomicRanges,
+    GenomeInfoDb,
+    methods
+LinkingTo: 
+    Rcpp (>= 0.12.0),
+    RcppEigen (>= 0.3.3.3.0),
+    RcppParallel (>= 5.0.1),
+    RcppProgress,
+    Rhtslib (>= 1.99.1),
+    zlibbioc
+Encoding: UTF-8
+RoxygenNote: 7.2.3
+Biarch: true
+Depends: 
+    R (>= 3.4.0)
+SystemRequirements: GNU make
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
