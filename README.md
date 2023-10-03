@@ -5,7 +5,10 @@
 
 <!-- badges: start -->
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8402785.svg)](https://doi.org/10.5281/zenodo.8402785)
+
 [![R-CMD-check](https://github.com/fmi-basel/gpeters-fetchNOMe/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/fmi-basel/gpeters-fetchNOMe/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
 fetchNOMe R package provides functionality for fast retrieval of
@@ -23,11 +26,9 @@ You can install the development version of fetchNOMe from
 devtools::install_github("fmi-basel/gpeters-fetchNOMe")
 ```
 
-## Example
-
-Comes lates…
-
-``` r
-library(fetchNOMe)
-## basic example code
-```
+<!-- ## Example -->
+<!-- Comes lates... -->
+<!-- ```{r example} -->
+<!-- library(fetchNOMe) -->
+<!-- ## basic example code -->
+<!-- ``` -->
