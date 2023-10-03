@@ -12,9 +12,8 @@
 #include <algorithm>
 #include <cstdint>
 #include <stdbool.h>
-#include "refSeqInfo-class.hpp"
-//#include "coocCntTable-class.hpp"
-#include "regionData-class.hpp"
+#include "refSeqInfo-class.h"
+#include "regionData-class.h"
 
 #ifdef __cplusplus
 extern "C" {

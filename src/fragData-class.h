@@ -10,10 +10,10 @@
 #include <cstdint>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "refSeqInfo-class.hpp"
-#include "utils_globvars.hpp"
-#include "protectStats-class.hpp"
-#include "coocCntTable-class.hpp""
+#include "refSeqInfo-class.h"
+#include "utils_globvars.h"
+#include "protectStats-class.h"
+#include "coocCntTable-class.h""
 
 
 using namespace std;

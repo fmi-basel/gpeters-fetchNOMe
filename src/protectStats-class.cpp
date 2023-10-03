@@ -1,4 +1,4 @@
-#include "protectStats-class.hpp"
+#include "protectStats-class.h"
 
 // constructors/destructors
 protectStatsTable::protectStatsTable(){};

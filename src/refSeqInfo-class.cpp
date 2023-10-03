@@ -1,4 +1,4 @@
-#include "refSeqInfo-class.hpp"
+#include "refSeqInfo-class.h"
 
 // constructors/destructors
 refSeqInfo::refSeqInfo(const string& seqstring, //sequence of a region

@@ -1,4 +1,4 @@
-#include "regionData-class.hpp"
+#include "regionData-class.h"
 
 regionData::regionData(){};
 regionData::regionData(const string& regchr,

@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 #include <algorithm>
-#include "utils_globvars.hpp"
+#include "utils_globvars.h"
 
 using namespace std;
 

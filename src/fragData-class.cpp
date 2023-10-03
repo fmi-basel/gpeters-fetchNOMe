@@ -1,4 +1,4 @@
-#include "fragData-class.hpp"
+#include "fragData-class.h"
 
 
 fragData::fragData(){

@@ -4,20 +4,16 @@ Title: Package for fast and convenient retrieval of NOMe-seq data from BAM files
 Version: 0.1
 Date: 2023-10-02
 Authors@R: person(given = "Evgeniy A.", family="Ozonov", email = "evgeniy.ozonov@fmi.ch", role = c("aut", "cre"))
-Description: This R package is tailored for fast and convenient retrieval of NOMe-seq data from BAM files aligned with QuasR, Bismark and biscuit. 
+Description: This R package is tailored for fast and convenient retrieval of NOMe-seq data from BAM files aligned with QuasR, Bismark and BISCUIT. 
 License: MIT + file LICENSE
 Imports: 
-    checkmate,
     parallel,
     Rcpp (>= 0.12.17),
     Rsamtools (>= 2.13.1),
-    stats,
-    stringr,
     tibble,
-    truncdist,
     GenomicRanges,
-    GenomeInfoDb,
-    methods
+    IRanges,
+    GenomeInfoDb
 LinkingTo: 
     Rcpp (>= 0.12.0),
     RcppEigen (>= 0.3.3.3.0),

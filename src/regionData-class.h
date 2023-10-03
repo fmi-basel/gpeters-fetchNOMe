@@ -7,9 +7,9 @@
 #include <string>
 #include <algorithm>
 
-#include "fragData-class.hpp"
-#include "utils_globvars.hpp"
-#include "protectStats-class.hpp"
+#include "fragData-class.h"
+#include "utils_globvars.h"
+#include "protectStats-class.h"
 
 using namespace std;
 

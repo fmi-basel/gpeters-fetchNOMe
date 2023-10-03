@@ -1,4 +1,4 @@
-#include "coocCntTable-class.hpp"
+#include "coocCntTable-class.h"
 
 
 // constructors

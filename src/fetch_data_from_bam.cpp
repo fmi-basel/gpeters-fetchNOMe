@@ -1,4 +1,4 @@
-#include "fetch_data_from_bam.hpp"
+#include "fetch_data_from_bam.h"
 
 // fetch data from bam file
 bool fetch_data_from_bam(const string& bamfile,

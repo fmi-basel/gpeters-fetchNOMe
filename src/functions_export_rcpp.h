@@ -13,9 +13,9 @@
 #include <algorithm>
 #include <cstdint>
 #include <stdbool.h>
-#include "refSeqInfo-class.hpp"
-#include "regionData-class.hpp"
-#include "fetch_data_from_bam.hpp"
+#include "refSeqInfo-class.h"
+#include "regionData-class.h"
+#include "fetch_data_from_bam.h"
 
 
 using namespace std;
