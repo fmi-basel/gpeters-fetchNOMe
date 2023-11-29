@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-#          - {os: macos-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
 #          - {os: windows-latest, r: 'release'}
 #          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
@@ -47,3 +47,4 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: false
+          error-on: '"error"'
