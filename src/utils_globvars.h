@@ -19,6 +19,13 @@ enum fragMapType{GCH, WCG, bisC, otherC,
                  allC // this is used only to get data matrix with all Cs
                  };
 
+// enumerator for aligners for which we have function implemented
+enum alignerType{QuasR,
+                 Bismark,
+                 BISQUIT
+};
+
+
 // enumerator for type of mismatches
 enum seekMismType{CtoT,GtoA};
 

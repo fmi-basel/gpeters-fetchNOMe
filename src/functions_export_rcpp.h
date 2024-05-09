@@ -41,7 +41,8 @@ Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichCon
                                            const Rcpp::NumericVector& max_bisC_meth,
                                            const Rcpp::IntegerVector& min_bisC_size,
                                            const Rcpp::IntegerVector& mapqMin,
-                                           const Rcpp::IntegerVector& mapqMax);
+                                           const Rcpp::IntegerVector& mapqMax,
+                                           const Rcpp::CharacterVector& alignerUsed);
 
 
 

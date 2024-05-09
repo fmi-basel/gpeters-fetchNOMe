@@ -12,8 +12,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // fetch_data_matrix_from_bams_cpp
-Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichContext, const Rcpp::CharacterVector& infiles, const Rcpp::CharacterVector& regionChr, const Rcpp::IntegerVector& regionStart, const Rcpp::IntegerVector& regionEnd, const Rcpp::CharacterVector& seqstring, const Rcpp::IntegerVector& seqStart, const Rcpp::IntegerVector& seqEnd, const Rcpp::LogicalVector& remove_nonunique, const Rcpp::IntegerVector& clip_until_nbg, const Rcpp::NumericVector& max_protect_frac, const Rcpp::NumericVector& max_bisC_meth, const Rcpp::IntegerVector& min_bisC_size, const Rcpp::IntegerVector& mapqMin, const Rcpp::IntegerVector& mapqMax);
-RcppExport SEXP _fetchNOMe_fetch_data_matrix_from_bams_cpp(SEXP whichContextSEXP, SEXP infilesSEXP, SEXP regionChrSEXP, SEXP regionStartSEXP, SEXP regionEndSEXP, SEXP seqstringSEXP, SEXP seqStartSEXP, SEXP seqEndSEXP, SEXP remove_nonuniqueSEXP, SEXP clip_until_nbgSEXP, SEXP max_protect_fracSEXP, SEXP max_bisC_methSEXP, SEXP min_bisC_sizeSEXP, SEXP mapqMinSEXP, SEXP mapqMaxSEXP) {
+Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichContext, const Rcpp::CharacterVector& infiles, const Rcpp::CharacterVector& regionChr, const Rcpp::IntegerVector& regionStart, const Rcpp::IntegerVector& regionEnd, const Rcpp::CharacterVector& seqstring, const Rcpp::IntegerVector& seqStart, const Rcpp::IntegerVector& seqEnd, const Rcpp::LogicalVector& remove_nonunique, const Rcpp::IntegerVector& clip_until_nbg, const Rcpp::NumericVector& max_protect_frac, const Rcpp::NumericVector& max_bisC_meth, const Rcpp::IntegerVector& min_bisC_size, const Rcpp::IntegerVector& mapqMin, const Rcpp::IntegerVector& mapqMax, const Rcpp::CharacterVector& alignerUsed);
+RcppExport SEXP _fetchNOMe_fetch_data_matrix_from_bams_cpp(SEXP whichContextSEXP, SEXP infilesSEXP, SEXP regionChrSEXP, SEXP regionStartSEXP, SEXP regionEndSEXP, SEXP seqstringSEXP, SEXP seqStartSEXP, SEXP seqEndSEXP, SEXP remove_nonuniqueSEXP, SEXP clip_until_nbgSEXP, SEXP max_protect_fracSEXP, SEXP max_bisC_methSEXP, SEXP min_bisC_sizeSEXP, SEXP mapqMinSEXP, SEXP mapqMaxSEXP, SEXP alignerUsedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,13 +32,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type min_bisC_size(min_bisC_sizeSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type mapqMin(mapqMinSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type mapqMax(mapqMaxSEXP);
-    rcpp_result_gen = Rcpp::wrap(fetch_data_matrix_from_bams_cpp(whichContext, infiles, regionChr, regionStart, regionEnd, seqstring, seqStart, seqEnd, remove_nonunique, clip_until_nbg, max_protect_frac, max_bisC_meth, min_bisC_size, mapqMin, mapqMax));
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type alignerUsed(alignerUsedSEXP);
+    rcpp_result_gen = Rcpp::wrap(fetch_data_matrix_from_bams_cpp(whichContext, infiles, regionChr, regionStart, regionEnd, seqstring, seqStart, seqEnd, remove_nonunique, clip_until_nbg, max_protect_frac, max_bisC_meth, min_bisC_size, mapqMin, mapqMax, alignerUsed));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_fetchNOMe_fetch_data_matrix_from_bams_cpp", (DL_FUNC) &_fetchNOMe_fetch_data_matrix_from_bams_cpp, 15},
+    {"_fetchNOMe_fetch_data_matrix_from_bams_cpp", (DL_FUNC) &_fetchNOMe_fetch_data_matrix_from_bams_cpp, 16},
     {NULL, NULL, 0}
 };
 

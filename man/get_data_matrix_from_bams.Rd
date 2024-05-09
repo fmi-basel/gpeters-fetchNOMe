@@ -10,6 +10,7 @@ get_data_matrix_from_bams(
   regions,
   genome,
   whichContext = c("GCH", "WCG", "bisC", "otherC", "allC"),
+  alignerUsed = c("QuasR", "Bismark", "BISQUIT"),
   collapseBySample = TRUE,
   remove_nonunique = TRUE,
   clip_until_nbg = 1L,
@@ -39,6 +40,8 @@ get_data_matrix_from_bams(
 \item{"otherC"}{methylation states of all other cytosines which do not fall into above categories.}
 \item{"allC"}{methylation states of all cytosines combined.}
 }}
+
+\item{alignerUsed}{\code{character} that defines which aligner was used to generate BAM files. Currently supported aligners are QuasR, Bismark and BISQUIT.}
 
 \item{collapseBySample}{\code{logical} indicating whether to collapse counts for bam files with same \code{samplenames}. If \code{FALSE} prefix \code{s} followed by index is added to \code{samplenames}.}
 

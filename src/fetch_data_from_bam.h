@@ -40,10 +40,16 @@ bool fetch_data_from_bam(const string& bamfile,
                          const string& regionChr,
                          const int& regionStart,
                          const int& regionEnd,
+                         const alignerType& aligner,
                          obj_pnts* pnts);
 
-// bam_fetch callback function for bam_fetch
-static int collectRegionData(const bam1_t *hit, void *data);
+// bam_fetch callback function for bam_fetch for data retrieval from BAM files produced by QuasR and Bismark
+static int collectRegionData_QsBism(const bam1_t *hit, void *data);
+
+// bam_fetch callback function for bam_fetch for data retrieval from BAM files produced by BISQUIT
+static int collectRegionData_Bisq(const bam1_t *hit, void *data);
+
+
 
 // checks validity of an alignment
 bool isValidAln(const bam1_t *hit,const obj_pnts* pdata);
