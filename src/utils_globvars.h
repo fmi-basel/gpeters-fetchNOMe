@@ -22,7 +22,7 @@ enum fragMapType{GCH, WCG, bisC, otherC,
 // enumerator for aligners for which we have function implemented
 enum alignerType{QuasR,
                  Bismark,
-                 BISQUIT
+                 BISCUIT
 };
 
 

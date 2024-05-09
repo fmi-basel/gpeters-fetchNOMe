@@ -16,7 +16,7 @@
 #' \item{"otherC"}{methylation states of all other cytosines which do not fall into above categories.}
 #' \item{"allC"}{methylation states of all cytosines combined.}
 #' }
-#' @param alignerUsed \code{character} that defines which aligner was used to generate BAM files. Currently supported aligners are QuasR, Bismark and BISQUIT.
+#' @param alignerUsed \code{character} that defines which aligner was used to generate BAM files. Currently supported aligners are QuasR, Bismark and BISCUIT.
 #' @param collapseBySample \code{logical} indicating whether to collapse counts for bam files with same \code{samplenames}. If \code{FALSE} prefix \code{s} followed by index is added to \code{samplenames}.
 #' @param remove_nonunique \code{logical} if \code{TRUE} only unique fragments are analyzed. Uniqueness is defined by fragments start, end and methylation states of all cytosines. 
 #' @param clip_until_nbg \code{integer} controlling clipping partial footprints at both ends of fragments. Namely, protected states are erased from each end until \code{clip_until_nbg} unprotected states are met.
@@ -53,7 +53,7 @@ get_data_matrix_from_bams <- function(bamfiles,
 																			regions,
 																			genome,
 																			whichContext = c("GCH","WCG","bisC","otherC", "allC"),
-																			alignerUsed = c("QuasR","Bismark","BISQUIT"),
+																			alignerUsed = c("QuasR","Bismark","BISCUIT"),
 																			collapseBySample = TRUE,
 																			remove_nonunique = TRUE,
 																			clip_until_nbg  = 1L,

@@ -46,7 +46,7 @@ bool fetch_data_from_bam(const string& bamfile,
 // bam_fetch callback function for bam_fetch for data retrieval from BAM files produced by QuasR and Bismark
 static int collectRegionData_QsBism(const bam1_t *hit, void *data);
 
-// bam_fetch callback function for bam_fetch for data retrieval from BAM files produced by BISQUIT
+// bam_fetch callback function for bam_fetch for data retrieval from BAM files produced by BISCUIT
 static int collectRegionData_Bisq(const bam1_t *hit, void *data);
 
 
