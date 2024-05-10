@@ -19,13 +19,13 @@ LinkingTo:
     RcppEigen (>= 0.3.3.3.0),
     RcppParallel (>= 5.0.1),
     RcppProgress,
-    Rhtslib (>= 1.18),
+    Rhtslib (>= 1.99.1),
     zlibbioc
 Encoding: UTF-8
 RoxygenNote: 7.3.1
 Biarch: true
 Depends: 
-    R (>= 4.4)
+    R (>= 3.4.0)
 SystemRequirements: GNU make
 Suggests: 
     testthat (>= 3.0.0)
