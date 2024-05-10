@@ -226,15 +226,18 @@ static int collectRegionData_Bisq(const bam1_t *hit, void *data) {
   uint8_t* ydTag = bam_aux_get(hit, "YD");
   char ydValue;
   if (ydTag) {
-    // The first byte is the type identifier, followed by the value
-    char type = bam_aux_type(ydTag);
-    if (type == 'A') {
-      // Get value
-      ydValue = bam_aux2A(ydTag);
-      
-    } else {
+    ydValue = bam_aux2A(ydTag);
+    if(ydValue == 0)
       Rcpp::Rcout << "Unexpected type for YD tag" << std::endl;
-    }
+    // The first byte is the type identifier, followed by the value
+    // char type = bam_aux_type(ydTag);
+    // if (type == 'A') {
+    //   // Get value
+    //   ydValue = bam_aux2A(ydTag);
+    //   
+    // } else {
+    //   Rcpp::Rcout << "Unexpected type for YD tag" << std::endl;
+    // }
     
   } else {
     Rcpp::Rcout << "No YD tag found. Either BAM file is corrupted or generated not by BISCUIT." << std::endl;
