@@ -19,7 +19,7 @@ LinkingTo:
     RcppEigen (>= 0.3.3.3.0),
     RcppParallel (>= 5.0.1),
     RcppProgress,
-    Rhtslib (>= 1.99.1),
+    Rhtslib (>= 1.18),
     zlibbioc
 Encoding: UTF-8
 RoxygenNote: 7.3.1
