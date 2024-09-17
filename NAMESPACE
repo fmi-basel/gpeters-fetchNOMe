@@ -1,3 +1,5 @@
 useDynLib(fetchNOMe, .registration=TRUE)
 importFrom(Rcpp, evalCpp)
 export(get_data_matrix_from_bams)
+export(get_ctable_from_bams)
+export(get_protect_stats_from_bams)
