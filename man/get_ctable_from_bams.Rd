@@ -19,6 +19,9 @@ get_ctable_from_bams(
   min_bisC_size = 10,
   mapqMin = 0,
   mapqMax = 255,
+  absIsizeMin = NULL,
+  absIsizeMax = NULL,
+  min_read_size = 25L,
   max_read_size = 1000L,
   ncores = 1L
 )
@@ -54,8 +57,15 @@ i.e. only fragments with number of non-GCH, and non-WCG cytosines higher then \c
 
 \item{mapqMax}{\code{integer} setting maximum MAPQ of reads to be included into analysis.}
 
-\item{max_read_size}{maximum read length expected in the BAM file. This parameter only controls how much regions of interest are flanked left and right to extract reference sequences.
-This parameter does not influence any filtering of fragments based on the length.}
+\item{absIsizeMin}{\code{integer} or \code{NULL} (default). For paired-end experiments, minimal absolute insert
+size (TLEN field in SAM Spec v1.4) of alignments to be included.}
+
+\item{absIsizeMax}{\code{integer} or \code{NULL} (default). For paired-end experiments, maximal absolute insert
+size (TLEN field in SAM Spec v1.4) of alignments to be included.}
+
+\item{min_read_size}{\code{integer}. minimum read length to be included.}
+
+\item{max_read_size}{\code{integer}. maximum read length to be included.}
 
 \item{ncores}{number of cores to use.}
 }

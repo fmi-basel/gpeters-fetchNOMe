@@ -31,6 +31,10 @@ typedef struct { // for use in callback function. contains pointers to required 
 	regionData *reg_data; // point to an object which stores data in region
 	int mapqMin; // minimum mapping quality score
 	int mapqMax; // maximum mapping quality score
+	int absIsizeMin; // minimum absolute tlen for paired reads
+	int absIsizeMax; // maximum absolute tlen for paired reads
+	int min_read_size; // minimum read length
+	int max_read_size; // maximum read length
 	string prefix; // prefix for qnames to avoid problems with identical qnames in different bams
 } obj_pnts;
 

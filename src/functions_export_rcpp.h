@@ -43,6 +43,10 @@ Rcpp::List fetch_cooc_ctable_from_bams_cpp(const Rcpp::CharacterVector& infiles,
                                            const Rcpp::IntegerVector& min_bisC_size,
                                            const Rcpp::IntegerVector& mapqMin,
                                            const Rcpp::IntegerVector& mapqMax,
+                                           const Rcpp::IntegerVector& absIsizeMin,
+                                           const Rcpp::IntegerVector& absIsizeMax,
+                                           const Rcpp::IntegerVector& min_read_size,
+                                           const Rcpp::IntegerVector& max_read_size,
                                            const Rcpp::CharacterVector& alignerUsed);
 
 
@@ -62,6 +66,10 @@ Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichCon
                                            const Rcpp::IntegerVector& min_bisC_size,
                                            const Rcpp::IntegerVector& mapqMin,
                                            const Rcpp::IntegerVector& mapqMax,
+                                           const Rcpp::IntegerVector& absIsizeMin,
+                                           const Rcpp::IntegerVector& absIsizeMax,
+                                           const Rcpp::IntegerVector& min_read_size,
+                                           const Rcpp::IntegerVector& max_read_size,
                                            const Rcpp::CharacterVector& alignerUsed);
 
 // [[Rcpp::export]]
@@ -79,6 +87,10 @@ Rcpp::List fetch_protect_stats_from_bams_cpp(const Rcpp::CharacterVector& infile
                                              const Rcpp::IntegerVector& min_bisC_size,
                                              const Rcpp::IntegerVector& mapqMin,
                                              const Rcpp::IntegerVector& mapqMax,
+                                             const Rcpp::IntegerVector& absIsizeMin,
+                                             const Rcpp::IntegerVector& absIsizeMax,
+                                             const Rcpp::IntegerVector& min_read_size,
+                                             const Rcpp::IntegerVector& max_read_size,
                                              const Rcpp::CharacterVector& alignerUsed);
 
 #endif

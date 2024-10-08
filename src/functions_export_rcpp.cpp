@@ -17,6 +17,10 @@ Rcpp::List fetch_cooc_ctable_from_bams_cpp(const Rcpp::CharacterVector& infiles,
                                            const Rcpp::IntegerVector& min_bisC_size,
                                            const Rcpp::IntegerVector& mapqMin,
                                            const Rcpp::IntegerVector& mapqMax,
+                                           const Rcpp::IntegerVector& absIsizeMin,
+                                           const Rcpp::IntegerVector& absIsizeMax,
+                                           const Rcpp::IntegerVector& min_read_size,
+                                           const Rcpp::IntegerVector& max_read_size,
                                            const Rcpp::CharacterVector& alignerUsed){
   
   string alignerUsed_ = Rcpp::as<string>(alignerUsed);
@@ -47,6 +51,11 @@ Rcpp::List fetch_cooc_ctable_from_bams_cpp(const Rcpp::CharacterVector& infiles,
   int min_bisC_size_ = Rcpp::as<int >(min_bisC_size);
   int mapqMin_ = Rcpp::as<int >(mapqMin);
   int mapqMax_ = Rcpp::as<int >(mapqMax);
+  int absIsizeMin_ = Rcpp::as<int >(absIsizeMin);
+  int absIsizeMax_ = Rcpp::as<int >(absIsizeMax);
+  int min_read_size_ = Rcpp::as<int >(min_read_size);
+  int max_read_size_ = Rcpp::as<int >(max_read_size);
+  
   
   // initialize container for reference sequence
   refSeqInfo refseqInfo(seqstring_, seqStart_,seqEnd_);
@@ -55,9 +64,15 @@ Rcpp::List fetch_cooc_ctable_from_bams_cpp(const Rcpp::CharacterVector& infiles,
   obj_pnts pnts;
   // store pointer to reference sequence container
   pnts.refseq_info = &refseqInfo;
-  // store min and amp MAPQ
+  // store min and max MAPQ
   pnts.mapqMin = mapqMin_;
   pnts.mapqMax = mapqMax_;
+  // store min and max tlen
+  pnts.absIsizeMin = absIsizeMin_;
+  pnts.absIsizeMax = absIsizeMax_;
+  // store min and max read lengths
+  pnts.min_read_size = min_read_size_;
+  pnts.max_read_size = max_read_size_;
   
   // initialize container for cooccurrence counts and counters
   coocCntTable cTable(max_spac_);
@@ -146,6 +161,10 @@ Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichCon
                                            const Rcpp::IntegerVector& min_bisC_size,
                                            const Rcpp::IntegerVector& mapqMin,
                                            const Rcpp::IntegerVector& mapqMax,
+                                           const Rcpp::IntegerVector& absIsizeMin,
+                                           const Rcpp::IntegerVector& absIsizeMax,
+                                           const Rcpp::IntegerVector& min_read_size,
+                                           const Rcpp::IntegerVector& max_read_size,
                                            const Rcpp::CharacterVector& alignerUsed){
   
   // convert input parameters
@@ -191,7 +210,10 @@ Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichCon
   int min_bisC_size_ = Rcpp::as<int >(min_bisC_size);
   int mapqMin_ = Rcpp::as<int >(mapqMin);
   int mapqMax_ = Rcpp::as<int >(mapqMax);
-  
+  int absIsizeMin_ = Rcpp::as<int >(absIsizeMin);
+  int absIsizeMax_ = Rcpp::as<int >(absIsizeMax);
+  int min_read_size_ = Rcpp::as<int >(min_read_size);
+  int max_read_size_ = Rcpp::as<int >(max_read_size);
   // initialize container for reference sequence
   refSeqInfo refseqInfo(seqstring_, seqStart_,seqEnd_);
   
@@ -202,7 +224,12 @@ Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichCon
   // store min and amp MAPQ
   pnts.mapqMin = mapqMin_;
   pnts.mapqMax = mapqMax_;
-  
+  // store min and max tlen
+  pnts.absIsizeMin = absIsizeMin_;
+  pnts.absIsizeMax = absIsizeMax_;
+  // store min and max read lengths
+  pnts.min_read_size = min_read_size_;
+  pnts.max_read_size = max_read_size_;
   // create container for fragments and counters
   regionData regData(regionChr_,regionStart_,regionEnd_);
   pnts.reg_data = &regData;
@@ -273,6 +300,10 @@ Rcpp::List fetch_protect_stats_from_bams_cpp(const Rcpp::CharacterVector& infile
                                              const Rcpp::IntegerVector& min_bisC_size,
                                              const Rcpp::IntegerVector& mapqMin,
                                              const Rcpp::IntegerVector& mapqMax,
+                                             const Rcpp::IntegerVector& absIsizeMin,
+                                             const Rcpp::IntegerVector& absIsizeMax,
+                                             const Rcpp::IntegerVector& min_read_size,
+                                             const Rcpp::IntegerVector& max_read_size,
                                              const Rcpp::CharacterVector& alignerUsed){
   
   
@@ -305,7 +336,10 @@ Rcpp::List fetch_protect_stats_from_bams_cpp(const Rcpp::CharacterVector& infile
   int min_bisC_size_ = Rcpp::as<int >(min_bisC_size);
   int mapqMin_ = Rcpp::as<int >(mapqMin);
   int mapqMax_ = Rcpp::as<int >(mapqMax);
-  
+  int absIsizeMin_ = Rcpp::as<int >(absIsizeMin);
+  int absIsizeMax_ = Rcpp::as<int >(absIsizeMax);
+  int min_read_size_ = Rcpp::as<int >(min_read_size);
+  int max_read_size_ = Rcpp::as<int >(max_read_size);
   
   // initialize container for reference sequence
   refSeqInfo refseqInfo(seqstring_, seqStart_,seqEnd_);
@@ -317,7 +351,12 @@ Rcpp::List fetch_protect_stats_from_bams_cpp(const Rcpp::CharacterVector& infile
   // store min and max MAPQ
   pnts.mapqMin = mapqMin_;
   pnts.mapqMax = mapqMax_;
-  
+  // store min and max tlen
+  pnts.absIsizeMin = absIsizeMin_;
+  pnts.absIsizeMax = absIsizeMax_;
+  // store min and max read lengths
+  pnts.min_read_size = min_read_size_;
+  pnts.max_read_size = max_read_size_;
   // initialize container for collecting protect statistics and counters
   protectStatsTable protStats;
   int n_fetched = 0, n_nonUnique = 0, n_bisfailed = 0, n_analysed = 0, n_clipped = 0;

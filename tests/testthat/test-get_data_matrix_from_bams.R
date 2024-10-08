@@ -22,6 +22,61 @@ test_that("get_data_matrix_from_bams works for QuasR bam file", {
 	
 	## test that identical
 	expect_true(all(quasR_methmat$allC_DataMatrix[[1]] == quasr_expected_methmat))
+	
+	
+	#### check if filtering by tlen works ####
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+	                                           samplenames = "quasr_pe",
+	                                           regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                            strand = "+",
+	                                                                            IRanges::IRanges(start = 200,end = 500)),
+	                                           genome = "random_genome_700bp.fa",
+	                                           whichContext ="allC",
+	                                           remove_nonunique = F,
+	                                           clip_until_nbg = 0L,
+	                                           max_bisC_meth = 1,
+	                                           absIsizeMin = 500)
+	
+	## test whether 0 reads are fetched
+	expect_true(nrow(quasR_methmat$allC_DataMatrix[[1]]) == 0)
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+	                                           samplenames = "quasr_pe",
+	                                           regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                            strand = "+",
+	                                                                            IRanges::IRanges(start = 200,end = 500)),
+	                                           genome = "random_genome_700bp.fa",
+	                                           whichContext ="allC",
+	                                           remove_nonunique = F,
+	                                           clip_until_nbg = 0L,
+	                                           max_bisC_meth = 1,
+	                                           absIsizeMax = 50)
+	expect_true(nrow(quasR_methmat$allC_DataMatrix[[1]]) == 0)
+	
+	#### check if filtering by read length works
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+	                                           samplenames = "quasr_pe",
+	                                           regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                            strand = "+",
+	                                                                            IRanges::IRanges(start = 200,end = 500)),
+	                                           genome = "random_genome_700bp.fa",
+	                                           whichContext ="allC",
+	                                           remove_nonunique = F,
+	                                           clip_until_nbg = 0L,
+	                                           max_bisC_meth = 1,
+	                                           min_read_size = 400)
+	expect_true(nrow(quasR_methmat$allC_DataMatrix[[1]]) == 0)
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+	                                           samplenames = "quasr_pe",
+	                                           regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                            strand = "+",
+	                                                                            IRanges::IRanges(start = 200,end = 500)),
+	                                           genome = "random_genome_700bp.fa",
+	                                           whichContext ="allC",
+	                                           remove_nonunique = F,
+	                                           clip_until_nbg = 0L,
+	                                           max_bisC_meth = 1,
+	                                           max_read_size = 50)
+	expect_true(nrow(quasR_methmat$allC_DataMatrix[[1]]) == 0)
 })
 
 
@@ -54,4 +109,54 @@ test_that("get_data_matrix_from_bams works for Bismark bam file with indels and 
 	
 	## test that identical
 	expect_true(all(bismark_methmat$allC_DataMatrix[[1]] == bismark_expected_methmat))
+	
+	#### test if filtering by tlen works ####
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+	                                             samplenames = "bismark_pe",
+	                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                              strand = "+",
+	                                                                              IRanges::IRanges(start = 200,end = 500)),
+	                                             genome = "random_genome_700bp.fa",
+	                                             whichContext ="allC",
+	                                             remove_nonunique = F,
+	                                             clip_until_nbg = 0L,
+	                                             absIsizeMin = 500)
+	expect_true(nrow(bismark_methmat$allC_DataMatrix[[1]]) == 0)
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+	                                             samplenames = "bismark_pe",
+	                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                              strand = "+",
+	                                                                              IRanges::IRanges(start = 200,end = 500)),
+	                                             genome = "random_genome_700bp.fa",
+	                                             whichContext ="allC",
+	                                             remove_nonunique = F,
+	                                             clip_until_nbg = 0L,
+	                                             absIsizeMax = 50)
+	expect_true(nrow(bismark_methmat$allC_DataMatrix[[1]]) == 0)
+	
+	#### test if filtering by read length works ####
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+	                                             samplenames = "bismark_pe",
+	                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                              strand = "+",
+	                                                                              IRanges::IRanges(start = 200,end = 500)),
+	                                             genome = "random_genome_700bp.fa",
+	                                             whichContext ="allC",
+	                                             remove_nonunique = F,
+	                                             clip_until_nbg = 0L,
+	                                             min_read_size = 500)
+	expect_true(nrow(bismark_methmat$allC_DataMatrix[[1]]) == 0)
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+	                                             samplenames = "bismark_pe",
+	                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+	                                                                              strand = "+",
+	                                                                              IRanges::IRanges(start = 200,end = 500)),
+	                                             genome = "random_genome_700bp.fa",
+	                                             whichContext ="allC",
+	                                             remove_nonunique = F,
+	                                             clip_until_nbg = 0L,
+	                                             max_read_size = 50)
+	expect_true(nrow(bismark_methmat$allC_DataMatrix[[1]]) == 0)
+	
+	
 })

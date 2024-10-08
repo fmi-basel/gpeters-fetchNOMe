@@ -23,7 +23,7 @@
 
 
 /*! @function
- * @abstrat Get whether the query is not primary alignment
+ * @abstract Get whether the query is not primary alignment
  * @param b pointer to an alignment
  * @return boolean true if query is not primary
  */
@@ -31,7 +31,7 @@
 #define bam_is_not_primary(b) (((b)->core.flag&BAM_FSECONDARY) != 0)
 
 /*! @function
- * @abstrat Get whether the query failed QC
+ * @abstract Get whether the query failed QC
  * @param b pointer to an alignment
  * @return boolean true if query failed QC
  */
@@ -40,7 +40,7 @@
 
 
 /*! @function
- * @abstrat Get whether the query is optical or PCR duplicate
+ * @abstract Get whether the query is optical or PCR duplicate
  * @param b pointer to an alignment
  * @return boolean true if query is optical or PCR duplicate
  */
@@ -48,13 +48,21 @@
 #define bam_is_pcr_dupl(b) (((b)->core.flag&BAM_FDUP) != 0)
 
 /*! @function
- * @abstrat Get whether the query is supplementary alignment
+ * @abstract Get whether the query is supplementary alignment
  * @param b pointer to an alignment
  * @return boolean true if query is supplementary alignment
  */
 
 #define bam_is_suppl(b) (((b)->core.flag&BAM_FSUPPLEMENTARY) != 0)
 
+
+/*
+ * @function
+ * @abstract Get whether read is mapped in a proper pair
+ * @param b pointer to an alignment
+ * @return boolean true if query is mapped in a proper pair
+ */
+#define bam_is_proper_pair(b) (((b)->core.flag&BAM_FPROPER_PAIR) != 0)
 
 
 samfile_t * _bam_tryopen(const char *filename, const char *filemode, void *aux);

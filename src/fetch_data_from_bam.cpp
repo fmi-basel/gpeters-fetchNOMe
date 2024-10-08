@@ -369,13 +369,26 @@ static int collectRegionData_Bisq(const bam1_t *hit, void *data) {
 // checks validity of an alignment
 bool isValidAln(const bam1_t *hit,const obj_pnts* pdata){
 	
-	return(!bam_is_not_primary(hit) && 
-         !bam_is_qc_fail(hit) && 
-         !bam_is_pcr_dupl(hit) &&
-         !bam_is_suppl(hit) &&
-         ((int )(hit->core).qual >= pdata->mapqMin) &&
-         ((int )(hit->core).qual <= pdata->mapqMax)
-        );
+	bool valaln = !bam_is_not_primary(hit) && 
+	  !bam_is_qc_fail(hit) && 
+	  !bam_is_pcr_dupl(hit) &&
+	  !bam_is_suppl(hit) &&
+	  ((int )(hit->core).qual >= pdata->mapqMin) &&
+	  ((int )(hit->core).qual <= pdata->mapqMax) &&
+	  ((int )(hit->core).l_qseq >= pdata->min_read_size) &&
+	  ((int )(hit->core).l_qseq <= pdata->max_read_size);
+  
+  // check insert length
+  if(bam_is_proper_pair(hit)){
+    if(pdata->absIsizeMin > 0){
+      valaln = valaln && llabs(((int )(hit->core).isize)) >= pdata->absIsizeMin;
+    }
+    if(pdata->absIsizeMax > 0){
+      valaln = valaln && llabs(((int )(hit->core).isize)) <= pdata->absIsizeMax;
+    }
+  }
+  
+  return(valaln);
 }
 
 
