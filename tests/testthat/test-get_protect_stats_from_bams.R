@@ -1,5 +1,6 @@
 test_that("get_protect_stats_from_bams works for QuasR bam file", {
   #library(GenomicRanges)
+  
   quasr_protect_stats <- get_protect_stats_from_bams(bamfiles = "QuasR_test.bam",
                                                      samplenames = "quasr_pe",
                                                      regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
@@ -7,6 +8,8 @@ test_that("get_protect_stats_from_bams works for QuasR bam file", {
                                                                                       IRanges::IRanges(start = 200,end = 500)),
                                                      genome = "random_genome_700bp.fa",
                                                      alignerUsed = "QuasR",
+                                                     min_frag_data_len = 0L,
+                                                     min_frag_data_dens = 0.0,
                                                      remove_nonunique = F,
                                                      clip_until_nbg = 0L,
                                                      max_bisC_meth = 1)
@@ -29,6 +32,8 @@ test_that("get_protect_stats_from_bams works for Bismark bam file", {
                                                                                         IRanges::IRanges(start = 200,end = 500)),
                                                        genome = "random_genome_700bp.fa",
                                                        alignerUsed = "Bismark",
+                                                       min_frag_data_len = 0L,
+                                                       min_frag_data_dens = 0.0,
                                                        remove_nonunique = F,
                                                        clip_until_nbg = 0L,
                                                        max_bisC_meth = 1)

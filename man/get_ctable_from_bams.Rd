@@ -10,6 +10,8 @@ get_ctable_from_bams(
   regions,
   genome,
   alignerUsed = c("QuasR", "Bismark", "BISCUIT"),
+  min_frag_data_len = 50L,
+  min_frag_data_dens = 0.05,
   collapseBySample = TRUE,
   max_spacing = 300,
   remove_nonunique = TRUE,
@@ -19,9 +21,6 @@ get_ctable_from_bams(
   min_bisC_size = 10,
   mapqMin = 0,
   mapqMax = 255,
-  absIsizeMin = NULL,
-  absIsizeMax = NULL,
-  min_read_size = 25L,
   max_read_size = 1000L,
   ncores = 1L
 )
@@ -36,6 +35,10 @@ get_ctable_from_bams(
 \item{genome}{\code{character} path to fasta file which was used as reference for alignment.}
 
 \item{alignerUsed}{\code{character} that defines which aligner was used to generate BAM files. Currently supported aligners are QuasR, Bismark and BISCUIT.}
+
+\item{min_frag_data_len}{\code{integer} ignore fragments that have genomic lengths from most-left to most-right data points less than \code{min_frag_data_len}.}
+
+\item{min_frag_data_dens}{\code{numeric} ignore fragments that have density of data-containing positions lower than \code{min_frag_data_dens}.}
 
 \item{collapseBySample}{\code{logical} indicating whether to collapse counts for bam files with same \code{samplenames}. If \code{FALSE} prefix \code{s} followed by index is added to \code{samplenames}.}
 
@@ -57,15 +60,7 @@ i.e. only fragments with number of non-GCH, and non-WCG cytosines higher then \c
 
 \item{mapqMax}{\code{integer} setting maximum MAPQ of reads to be included into analysis.}
 
-\item{absIsizeMin}{\code{integer} or \code{NULL} (default). For paired-end experiments, minimal absolute insert
-size (TLEN field in SAM Spec v1.4) of alignments to be included.}
-
-\item{absIsizeMax}{\code{integer} or \code{NULL} (default). For paired-end experiments, maximal absolute insert
-size (TLEN field in SAM Spec v1.4) of alignments to be included.}
-
-\item{min_read_size}{\code{integer}. minimum read length to be included.}
-
-\item{max_read_size}{\code{integer}. maximum read length to be included.}
+\item{max_read_size}{\code{integer}. maximum read length which is expected in the data. This parameter controls only extension of regions for extracting reference sequence.}
 
 \item{ncores}{number of cores to use.}
 }

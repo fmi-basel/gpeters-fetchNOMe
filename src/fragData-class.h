@@ -28,12 +28,15 @@ class fragData{
 	int fragStart;
 	int fragEnd;
 	
+	// configuration of a fragment, i.e. R1+R2- etc.
+	string fragConfig;
 	// file prefix where the fragment came from
 	string prefix;
 	
 	// protection at GCH sites
 	map<int, bool > gchProtect; // map: 1-based position -> protection {0 - unprotected, 1 - protected}
-	map<int, bool > gchIsOnPlusStrand; // 1 - "+" strand, 0 - "-" strand
+	map<int, bool > gchIsOnPlusStrand; // 1 - "+" strand, 0 - "-" strand.
+	// The reason that the strand is encoded as an vector is that fragData is a container for a fragment consisting of both reads R1 and R2
 	
 	// methylation of endogenous CpG at WCG sites
 	map<int , bool > wcgMeth;
@@ -55,6 +58,7 @@ public:
 	fragData(const string& bampref,
           const int& fragstart,
           const int& fragend,
+          const string& fragconfig,
           const vector<int >& gch_pos,
           const vector<bool >& gch_protect,
           const vector<bool >& gch_onplusstrand,
@@ -84,10 +88,12 @@ public:
                          fragMapType whichMap);
 	
 	
+	
 	// add data into the map 
 	bool addData(const string& bampref,
               const int& fragstart,
               const int& fragend,
+              const string& fragconfig,
               const vector<int >& rposvec,
               const vector<bool >& protectvec,
               const vector<bool >& isonplusstrandvec,
@@ -97,6 +103,27 @@ public:
 	
 	// convert data to strings
 	vector<string > getStringData();
+	
+	string getFragConfig();
+	
+	// // get most left position of the first point with data
+	// int getFragDataStart(fragMapType whichMap);
+	// 
+	// // get most right position of the last point with data
+	// int getFragDataEnd(fragMapType whichMap);
+	
+	// get positions where the data start, end and number of informative positions
+	std::vector<int > getFragDataStartEndNpoints(fragMapType whichMap);
+	
+	
+	
+	
+	// get the data, npoints and left and right datapoints;
+	Rcpp::List getFragDataVector(fragMapType whichMap);
+	
+	
+	// get the Rle compressed data, npoints and left and right datapoints;
+	Rcpp::List getFragDataRle(fragMapType whichMap);
 	
 	
 	// print
@@ -117,8 +144,9 @@ public:
 	);
 	
 	
-	double get_bisC_meth(int min_size);
+	double get_bisC_meth(const int& min_size);
 	
+	bool isEmpty(fragMapType whichMap);
 	
 	// get string representation of fragData
 	string getStringEncodingForUniqueness();

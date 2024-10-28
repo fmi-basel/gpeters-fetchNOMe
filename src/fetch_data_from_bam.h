@@ -31,11 +31,13 @@ typedef struct { // for use in callback function. contains pointers to required 
 	regionData *reg_data; // point to an object which stores data in region
 	int mapqMin; // minimum mapping quality score
 	int mapqMax; // maximum mapping quality score
-	int absIsizeMin; // minimum absolute tlen for paired reads
-	int absIsizeMax; // maximum absolute tlen for paired reads
-	int min_read_size; // minimum read length
-	int max_read_size; // maximum read length
+	// int absIsizeMin; // minimum absolute tlen for paired reads
+	// int absIsizeMax; // maximum absolute tlen for paired reads
+	// int min_read_size; // minimum read length
+	// int max_read_size; // maximum read length
 	string prefix; // prefix for qnames to avoid problems with identical qnames in different bams
+	//fragMapType whichContext; // required context
+	std::vector<fragMapType > *context_vec; // pointer to a vector of contexts to retrieve data for
 } obj_pnts;
 
 
@@ -52,6 +54,8 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data);
 
 // bam_fetch callback function for bam_fetch for data retrieval from BAM files produced by BISCUIT
 static int collectRegionData_Bisq(const bam1_t *hit, void *data);
+
+string getFragConfig(const bam1_t *hit);
 
 
 
