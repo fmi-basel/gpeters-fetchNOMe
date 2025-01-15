@@ -100,6 +100,10 @@ get_molecule_data_list_from_bams <- function(bamfiles,
   ## remove metadata from regions
   GenomicRanges::mcols(regions) <- NULL
   
+  ## if regions has no names assign index
+  if(is.null(names(regions)))
+    names(regions) <- seq_along(regions)
+  
   ## load refsequences for regions
   
   ## extend regions from left and right
@@ -153,6 +157,9 @@ get_molecule_data_list_from_bams <- function(bamfiles,
                                                                                      
                                                                                      outtbl <- tibble::tibble("SampleName" = bamgroupname,
                                                                                                               "seqnames" = regdf[1,"seqnames"],
+                                                                                                              "region_start" = regdf[1,"start"],
+                                                                                                              "region_end" = regdf[1,"end"],
+                                                                                                              "region_name" = names(regions)[regi],
                                                                                                               "start" = outlist[["start"]],
                                                                                                               "end" = outlist[["end"]],
                                                                                                               "R1strand" = outlist[["R1strand"]],

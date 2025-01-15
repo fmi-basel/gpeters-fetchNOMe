@@ -73,7 +73,7 @@ string getFragConfig(const bam1_t *hit){
     }
   } else if(bam_is_second(hit)){
     if(bam_is_proper_pair(hit)){
-      if(bam_is_rev(hit))
+      if(bam_is_mrev(hit))
         frag_config = "R1-";
       else
         frag_config = "R1+";

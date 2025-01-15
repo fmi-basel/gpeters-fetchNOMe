@@ -25,6 +25,10 @@ enum alignerType{QuasR,
                  BISCUIT
 };
 
+// enumerator for enzymes used for SMF assay
+enum smf_enzyme{M.CviPI, // NOMe-seq from Kelly et al 2012
+                DddB // FOODIE from He et al 2024 
+                };
 
 // enumerator for type of mismatches
 enum seekMismType{CtoT,GtoA};
