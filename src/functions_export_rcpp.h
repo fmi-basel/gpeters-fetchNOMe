@@ -42,6 +42,7 @@ Rcpp::List fetch_molec_data_list_from_bams_cpp(const Rcpp::CharacterVector& whic
                                                const Rcpp::IntegerVector& mapqMin,
                                                const Rcpp::IntegerVector& mapqMax,
                                                const Rcpp::CharacterVector& alignerUsed,
+                                               const Rcpp::CharacterVector& SMFenzymeUsed,
                                                const Rcpp::IntegerVector& min_frag_data_len,
                                                const Rcpp::NumericVector& min_frag_data_dens,
                                                const Rcpp::LogicalVector& data_as_rle);
@@ -63,6 +64,7 @@ Rcpp::List fetch_cooc_ctable_from_bams_cpp(const Rcpp::CharacterVector& infiles,
                                            const Rcpp::IntegerVector& mapqMin,
                                            const Rcpp::IntegerVector& mapqMax,
                                            const Rcpp::CharacterVector& alignerUsed,
+                                           const Rcpp::CharacterVector& SMFenzymeUsed,
                                            const Rcpp::IntegerVector& min_frag_data_len,
                                            const Rcpp::NumericVector& min_frag_data_dens);
 
@@ -84,6 +86,7 @@ Rcpp::List fetch_data_matrix_from_bams_cpp(const Rcpp::CharacterVector& whichCon
                                            const Rcpp::IntegerVector& mapqMin,
                                            const Rcpp::IntegerVector& mapqMax,
                                            const Rcpp::CharacterVector& alignerUsed,
+                                           const Rcpp::CharacterVector& SMFenzymeUsed,
                                            const Rcpp::IntegerVector& min_frag_data_len,
                                            const Rcpp::NumericVector& min_frag_data_dens);
 
@@ -103,6 +106,7 @@ Rcpp::List fetch_protect_stats_from_bams_cpp(const Rcpp::CharacterVector& infile
                                              const Rcpp::IntegerVector& mapqMin,
                                              const Rcpp::IntegerVector& mapqMax,
                                              const Rcpp::CharacterVector& alignerUsed,
+                                             const Rcpp::CharacterVector& SMFenzymeUsed,
                                              const Rcpp::IntegerVector& min_frag_data_len,
                                              const Rcpp::NumericVector& min_frag_data_dens);
 

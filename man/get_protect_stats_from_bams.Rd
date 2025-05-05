@@ -10,6 +10,9 @@ get_protect_stats_from_bams(
   regions,
   genome,
   alignerUsed = c("QuasR", "Bismark", "BISCUIT"),
+  SMFenzymeUsed = c("M.CviPI", "DddB"),
+  min_frag_data_len = 50L,
+  min_frag_data_dens = 0.05,
   collapseBySample = TRUE,
   remove_nonunique = TRUE,
   clip_until_nbg = 1L,
@@ -33,6 +36,14 @@ get_protect_stats_from_bams(
 
 \item{alignerUsed}{\code{character} that defines which aligner was used to generate BAM files. Currently supported aligners are QuasR, Bismark and BISCUIT.}
 
+\item{SMFenzymeUsed}{\code{character} informs the function about what enzyme was used for marking accessible positions. 
+If \code{M.CviPI} is chosen, then only cytosines in GCH are considered informative.
+If \code{DddB} is chosen, then all cytosines are considered informative.}
+
+\item{min_frag_data_len}{\code{integer} ignore fragments that have genomic lengths from most-left to most-right data points less than \code{min_frag_data_len}.}
+
+\item{min_frag_data_dens}{\code{numeric} ignore fragments that have density of data-containing positions lower than \code{min_frag_data_dens}.}
+
 \item{collapseBySample}{\code{logical} indicating whether to collapse counts for bam files with same \code{samplenames}. If \code{FALSE} prefix \code{s} followed by index is added to \code{samplenames}.}
 
 \item{remove_nonunique}{\code{logical} if \code{TRUE} only unique fragments are analyzed. Uniqueness is defined by fragments start, end and methylation states of all cytosines.}
@@ -54,10 +65,6 @@ i.e. only fragments with number of non-GCH, and non-WCG cytosines higher then \c
 \item{max_read_size}{\code{integer}. maximum read length which is expected in the data. This parameter controls only extension of regions for extracting reference sequence.}
 
 \item{ncores}{number of cores to use.}
-
-\item{min_frag_data_len}{\code{integer} ignore fragments that have genomic lengths from most-left to most-right data points less than \code{min_frag_data_len}.}
-
-\item{min_frag_data_dens}{\code{numeric} ignore fragments that have density of data-containing positions lower than \code{min_frag_data_dens}.}
 }
 \value{
 \code{tibble} where each row corresponds to sample - region combination. 

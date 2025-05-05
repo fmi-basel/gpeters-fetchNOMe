@@ -11,6 +11,7 @@ get_molecule_data_list_from_bams(
   genome,
   whichContext = c("GCH", "WCG", "bisC", "otherC", "allC"),
   alignerUsed = c("QuasR", "Bismark", "BISCUIT"),
+  SMFenzymeUsed = c("M.CviPI", "DddB"),
   min_frag_data_len = 50L,
   min_frag_data_dens = 0.05,
   collapseBySample = TRUE,
@@ -22,7 +23,8 @@ get_molecule_data_list_from_bams(
   mapqMin = 0,
   mapqMax = 255,
   max_read_size = 1000L,
-  ncores = 1L
+  ncores = 1L,
+  data_as_Rle = FALSE
 )
 }
 \arguments{
@@ -44,6 +46,10 @@ get_molecule_data_list_from_bams(
 }}
 
 \item{alignerUsed}{\code{character} that defines which aligner was used to generate BAM files. Currently supported aligners are QuasR, Bismark and BISCUIT.}
+
+\item{SMFenzymeUsed}{\code{character} informs the function about what enzyme was used for marking accessible positions. 
+If \code{M.CviPI} is chosen, then only cytosines in GCH are considered informative.
+If \code{DddB} is chosen, then all cytosines are considered informative.}
 
 \item{min_frag_data_len}{\code{integer} ignore fragments that have genomic lengths from most-left to most-right data points less than \code{min_frag_data_len}.}
 
@@ -70,6 +76,8 @@ i.e. only fragments with number of non-GCH, and non-WCG cytosines higher then \c
 \item{max_read_size}{\code{integer}. maximum read length which is expected in the data. This parameter controls only extension of regions for extracting reference sequence.}
 
 \item{ncores}{number of cores to use.}
+
+\item{data_as_Rle}{\code{logical} if \code{TRUE} data vectors are \code{Rle} compressed.}
 }
 \value{
 \code{tibble} where each row corresponds to sample - molecule combination.

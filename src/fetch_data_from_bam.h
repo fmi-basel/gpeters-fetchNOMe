@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include "refSeqInfo-class.h"
 #include "regionData-class.h"
+#include "utils_globvars.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,6 +39,7 @@ typedef struct { // for use in callback function. contains pointers to required 
 	string prefix; // prefix for qnames to avoid problems with identical qnames in different bams
 	//fragMapType whichContext; // required context
 	std::vector<fragMapType > *context_vec; // pointer to a vector of contexts to retrieve data for
+	smf_enzyme SMFenzyme;
 } obj_pnts;
 
 

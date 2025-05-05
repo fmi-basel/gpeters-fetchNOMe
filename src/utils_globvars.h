@@ -26,7 +26,7 @@ enum alignerType{QuasR,
 };
 
 // enumerator for enzymes used for SMF assay
-enum smf_enzyme{M.CviPI, // NOMe-seq from Kelly et al 2012
+enum smf_enzyme{MCviPI, // NOMe-seq from Kelly et al 2012
                 DddB // FOODIE from He et al 2024 
                 };
 

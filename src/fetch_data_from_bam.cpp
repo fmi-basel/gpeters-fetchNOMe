@@ -13,7 +13,6 @@ bool fetch_data_from_bam(const string& bamfile,
   samfile_t *fin;
   bam_index_t *idx;
   
-  
   fin = _bam_tryopen(bamfile.c_str(), "rb", NULL);
   idx = bam_index_load(bamfile.c_str()); // load BAM index
   if (idx == 0)
@@ -119,8 +118,6 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
   
   string frag_config = getFragConfig(hit);
   
-  
-  
   // choose strand to get contexts for
   seekMismType msmType;
   if(is_second){ // parsing second mate in PE data, strand determined by first mate
@@ -135,7 +132,7 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
   
   for(int i = 0; i < pdata->context_vec->size(); ++i){
     fragMapType currContext = pdata->context_vec->at(i);
-    
+    smf_enzyme SMFenzyme = pdata->SMFenzyme;
     // get positions for the context in reference
     vector<int> cntx_rpos_vec = pdata->refseq_info->getPositionsBetween(ref_start,ref_end,currContext, msmType == CtoT);
     
@@ -153,7 +150,7 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
       // get nucleotide in query
       string qseq = nt16_table[bam1_seqi(hitseq, qpos)];
       
-      // check if C->T mismatch if msmType == CtoT or GtoA otherwise. query on - in BAM are reverse complement
+      // check if C->T mismatch if msmType == CtoT or GtoA otherwise. query on "-" strand in BAM are reverse complement
       switch(msmType) {
       case CtoT:
       {
@@ -162,16 +159,39 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
         rpos_vec.push_back(cntx_rpos_vec[cind]);
         // add data
         //dat_vec.push_back(context_vec[i] == GCH ? 0 : 1);
-        dat_vec.push_back(currContext == GCH ? 0 : 1);
+        // depending on the enzyme add 0 or 1
+        switch(SMFenzyme) {
+        case MCviPI:{
+          dat_vec.push_back(currContext == GCH ? 0 : 1);
+          break;
+        }
+        case DddB:{
+          // deaminase convert C -> U, therefore every C->T mutation is unprotected position
+          dat_vec.push_back(0);
+          break;
+        }
+        }
+        
         // add strand
         isplusstrand_vec.push_back(!is_read_rev);
         
       } else if(qseq == "T"){ // unmethylated or protected
         // add position on reference
         rpos_vec.push_back(cntx_rpos_vec[cind]);
-        // add data
-        //dat_vec.push_back(context_vec[i] == GCH ? 1 : 0);
-        dat_vec.push_back(currContext == GCH ? 1 : 0);
+        // add data depending on enzyme
+        
+        switch(SMFenzyme) {
+        case MCviPI:{
+          dat_vec.push_back(currContext == GCH ? 1 : 0);
+          break;
+        }
+        case DddB:{
+          // deaminase convert C -> U, therefore every non-converted C is protected position
+          dat_vec.push_back(1);
+          break;
+        }
+        }
+        
         // add strand
         isplusstrand_vec.push_back(!is_read_rev);
       }
@@ -183,8 +203,17 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
         // add position on reference
         rpos_vec.push_back(cntx_rpos_vec[cind]);
         // add data
-        //dat_vec.push_back(context_vec[i] == GCH ? 0 : 1);
-        dat_vec.push_back(currContext == GCH ? 0 : 1);
+        switch(SMFenzyme) {
+        case MCviPI:{
+          dat_vec.push_back(currContext == GCH ? 0 : 1);
+          break;
+        }
+        case DddB:{
+          dat_vec.push_back(0);
+          break;
+        }
+        }
+        
         // add strand
         isplusstrand_vec.push_back(!is_read_rev);
         
@@ -192,8 +221,17 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
         // add position on reference
         rpos_vec.push_back(cntx_rpos_vec[cind]);
         // add data
-        //dat_vec.push_back(context_vec[i] == GCH ? 1 : 0);
-        dat_vec.push_back(currContext == GCH ? 1 : 0);
+        switch(SMFenzyme) {
+        case MCviPI:{
+          dat_vec.push_back(currContext == GCH ? 1 : 0);
+          break;
+        }
+        case DddB:{
+          dat_vec.push_back(1);
+          break;
+        }
+        }
+        
         // add strand
         isplusstrand_vec.push_back(!is_read_rev);
       }
@@ -205,17 +243,39 @@ static int collectRegionData_QsBism(const bam1_t *hit, void *data) {
       
     }
     
-    // add data for the current context into regionData
-    pdata->reg_data->addFragContextData(pdata->prefix,
-                                        pdata->prefix + qname,
-                                        ref_start,
-                                        ref_end,
-                                        frag_config,
-                                        rpos_vec,
-                                        dat_vec,
-                                        isplusstrand_vec,
-                                        is_second,
-                                        currContext);
+    // add data for the current context into regionData depending on the enzyme
+    // add data
+    switch(SMFenzyme) {
+    case MCviPI:{
+      pdata->reg_data->addFragContextData(pdata->prefix,
+                                          pdata->prefix + qname,
+                                          ref_start,
+                                          ref_end,
+                                          frag_config,
+                                          rpos_vec,
+                                          dat_vec,
+                                          isplusstrand_vec,
+                                          is_second,
+                                          currContext);
+      break;
+    }
+    case DddB:{
+      // for deaminase every C is an informative position. therefore we store the data in GCH map (inform. pos for M.CviPI)
+      pdata->reg_data->addFragContextData(pdata->prefix,
+                                          pdata->prefix + qname,
+                                          ref_start,
+                                          ref_end,
+                                          frag_config,
+                                          rpos_vec,
+                                          dat_vec,
+                                          isplusstrand_vec,
+                                          is_second,
+                                          GCH);
+      
+      break;
+    }
+    }
+    
     
   }
   return(0);
