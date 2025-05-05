@@ -13,4 +13,6 @@ PKG_CPPFLAGS = -I"../inst/include" -DBOOST_DISABLE_ASSERTS -DEIGEN_NO_DEBUG -DBO
 PKG_CXXFLAGS = $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e "RcppParallel::CxxFlags()") 
 PKG_LIBS = $(shell "$(R_HOME)/bin$(R_ARCH_BIN)/Rscript" -e "RcppParallel::RcppParallelLibs()") $(RHTSLIB_LIBS) 
 
-
+## src/Makevars.in
+PKG_CPPFLAGS += -I@TBB_PREFIX@/include
+PKG_LIBS += -L@TBB_PREFIX@/lib -ltbb
