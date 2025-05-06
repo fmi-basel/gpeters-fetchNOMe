@@ -51,22 +51,6 @@ dnl this the meat of R's m4/openmp.m4
   fi
 
 AC_SUBST(OPENMP_CXXFLAGS)
-
-dnl === Detect TBB for macOS ===
-AC_MSG_CHECKING([for TBB on macOS])
-
-case "$host_os" in
-  darwin*)
-    TBB_PREFIX=`brew --prefix tbb 2>/dev/null`
-    if test -z "$TBB_PREFIX"; then
-      AC_MSG_ERROR([TBB not found via Homebrew. Please install it with 'brew install tbb'.])
-    fi
-    AC_MSG_RESULT([found at $TBB_PREFIX])
-    ;;
-esac
-
-AC_SUBST(TBB_PREFIX)
-
 AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT
 

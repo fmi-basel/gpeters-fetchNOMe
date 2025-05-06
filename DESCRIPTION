@@ -26,9 +26,7 @@ RoxygenNote: 7.3.2
 Biarch: true
 Depends: 
     R (>= 3.4.0)
-SystemRequirements:
-    GNU make
-    Intel TBB (https://www.threadingbuildingblocks.org/)
+SystemRequirements: GNU make
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

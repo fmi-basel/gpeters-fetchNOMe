@@ -4,4 +4,3 @@
 ^LICENSE\.md$
 ^\.github$
 ^README\.Rmd$
-^src/Makevars$
