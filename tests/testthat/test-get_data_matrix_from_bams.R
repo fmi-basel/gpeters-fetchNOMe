@@ -1,12 +1,16 @@
 test_that("get_data_matrix_from_bams works for QuasR bam file", {
-  #library(GenomicRanges)
-  #browser()
-	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+  
+  quasr_bam <- system.file("extdata",
+                           "QuasR_test.bam",
+                           package = "fetchNOMe")
+  test_genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
+  
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = quasr_bam,
 																						 samplenames = "quasr_pe",
 																						 regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
 																						 																 strand = "+",
 																						 																 IRanges::IRanges(start = 200,end = 500)),
-																						 genome = "random_genome_700bp.fa",
+																						 genome = test_genome,
 																						 whichContext ="allC",
 																						 remove_nonunique = F,
 																						 clip_until_nbg = 0L,
@@ -18,19 +22,19 @@ test_that("get_data_matrix_from_bams works for QuasR bam file", {
 	quasR_methmat$allC_DataMatrix[[1]] <- quasR_methmat$allC_DataMatrix[[1]][roword,]
 	
 	## load expected matrix
-	quasr_expected_methmat <- readRDS("QuasR_expected_methylation_data_matrix.rds")[roword,]
+	quasr_expected_methmat <- readRDS(test_path("testdata","QuasR_expected_methylation_data_matrix.rds"))[roword,]
 	
 	## test that identical
 	expect_true(all(quasR_methmat$allC_DataMatrix[[1]] == quasr_expected_methmat))
 	
 	
 	# #### check if filtering by data vector length works ####
-	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = quasr_bam,
 	                                           samplenames = "quasr_pe",
 	                                           regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
 	                                                                            strand = "+",
 	                                                                            IRanges::IRanges(start = 200,end = 500)),
-	                                           genome = "random_genome_700bp.fa",
+	                                           genome = test_genome,
 	                                           whichContext ="allC",
 	                                           remove_nonunique = F,
 	                                           clip_until_nbg = 0L,
@@ -39,12 +43,12 @@ test_that("get_data_matrix_from_bams works for QuasR bam file", {
 	
 	# ## test whether 0 reads are fetched
 	expect_true(nrow(quasR_methmat$allC_DataMatrix[[1]]) == 0)
-	quasR_methmat <- get_data_matrix_from_bams(bamfiles = "QuasR_test.bam",
+	quasR_methmat <- get_data_matrix_from_bams(bamfiles = quasr_bam,
 	                                           samplenames = "quasr_pe",
 	                                           regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
 	                                                                            strand = "+",
 	                                                                            IRanges::IRanges(start = 200,end = 500)),
-	                                           genome = "random_genome_700bp.fa",
+	                                           genome = test_genome,
 	                                           whichContext ="allC",
 	                                           remove_nonunique = F,
 	                                           clip_until_nbg = 0L,
@@ -57,18 +61,17 @@ test_that("get_data_matrix_from_bams works for QuasR bam file", {
 
 
 test_that("get_data_matrix_from_bams works for Bismark bam file with indels and soft clipping", {
-#   library(GenomicRanges)
-# 	## coordinates of the test fragment
-# 	frag_coord_OT_gr <- GRanges(seqnames = "random_genome_700bp",
-# 															strand = "+",
-# 															IRanges(start = 200,end = 500))
-	
-	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+
+	bism_bam <- system.file("extdata",
+	                        "Bismark_test.bam",
+	                        package = "fetchNOMe")
+	test_genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = bism_bam,
 																						 samplenames = "bismark_pe",
 																						 regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
 																						 																 strand = "+",
 																						 																 IRanges::IRanges(start = 200,end = 500)),
-																						 genome = "random_genome_700bp.fa",
+																						 genome = test_genome,
 																						 whichContext ="allC",
 																						 remove_nonunique = F,
 																						 clip_until_nbg = 0L,
@@ -80,30 +83,30 @@ test_that("get_data_matrix_from_bams works for Bismark bam file with indels and 
 	bismark_methmat$allC_DataMatrix[[1]] <- bismark_methmat$allC_DataMatrix[[1]][roword,]
 	
 	## load expected matrix
-	bismark_expected_methmat <- readRDS("Bismark_expected_methylation_data_matrix.rds")[roword,]
+	bismark_expected_methmat <- readRDS(test_path("testdata","Bismark_expected_methylation_data_matrix.rds"))[roword,]
 	
 	
 	## test that identical
 	expect_true(all(bismark_methmat$allC_DataMatrix[[1]] == bismark_expected_methmat))
 	
 	# #### test if filtering by data vector length works ####
-	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = bism_bam,
 	                                             samplenames = "bismark_pe",
 	                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
 	                                                                              strand = "+",
 	                                                                              IRanges::IRanges(start = 200,end = 500)),
-	                                             genome = "random_genome_700bp.fa",
+	                                             genome = test_genome,
 	                                             whichContext ="allC",
 	                                             remove_nonunique = F,
 	                                             clip_until_nbg = 0L,
 	                                             min_frag_data_len = 500L)
 	expect_true(nrow(bismark_methmat$allC_DataMatrix[[1]]) == 0)
-	bismark_methmat <- get_data_matrix_from_bams(bamfiles = "Bismark_test.bam",
+	bismark_methmat <- get_data_matrix_from_bams(bamfiles = bism_bam,
 	                                             samplenames = "bismark_pe",
 	                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
 	                                                                              strand = "+",
 	                                                                              IRanges::IRanges(start = 200,end = 500)),
-	                                             genome = "random_genome_700bp.fa",
+	                                             genome = test_genome,
 	                                             whichContext ="allC",
 	                                             remove_nonunique = F,
 	                                             clip_until_nbg = 0L,

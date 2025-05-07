@@ -1,10 +1,18 @@
 test_that("get_molecule_data_list_from_bams works for QuasR bam file", {
-  quasR_methlist <- get_molecule_data_list_from_bams(bamfiles = "QuasR_test.bam",
+  
+  
+  quasr_bam <- system.file("extdata",
+                           "QuasR_test.bam",
+                           package = "fetchNOMe")
+  test_genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
+  
+  
+  quasR_methlist <- get_molecule_data_list_from_bams(bamfiles = quasr_bam,
                                                      samplenames = "quasr_pe",
                                                      regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
                                                                                       strand = "+",
                                                                                       IRanges::IRanges(start = 200,end = 500)),
-                                                     genome = "random_genome_700bp.fa",
+                                                     genome = test_genome,
                                                      whichContext ="allC",
                                                      remove_nonunique = F,
                                                      clip_until_nbg = 0L,
@@ -23,7 +31,7 @@ test_that("get_molecule_data_list_from_bams works for QuasR bam file", {
   
   
   ## load expected data
-  dat_reads <- readRDS("QuasR_expected_methylation_reads_list.rds")
+  dat_reads <- readRDS(test_path("testdata","QuasR_expected_methylation_reads_list.rds"))
   ## test if all data points equal expected values
   expect_true(all(do.call(c,lapply(1:length(rdat),function(i){
     rdat[[i]] == dat_reads[[i]]
@@ -34,12 +42,12 @@ test_that("get_molecule_data_list_from_bams works for QuasR bam file", {
   
   
   ## test if returned Rle encoded data is as expected
-  data_vec <- get_molecule_data_list_from_bams(bamfiles = "QuasR_test.bam",
+  data_vec <- get_molecule_data_list_from_bams(bamfiles = quasr_bam,
                                                samplenames = "quasr_pe",
                                                regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
                                                                                 strand = "+",
                                                                                 IRanges::IRanges(start = 200,end = 500)),
-                                               genome = "random_genome_700bp.fa",
+                                               genome = test_genome,
                                                whichContext ="GCH",
                                                remove_nonunique = F,
                                                clip_until_nbg = 0L,
@@ -47,19 +55,19 @@ test_that("get_molecule_data_list_from_bams works for QuasR bam file", {
                                                min_frag_data_len = 50L,
                                                min_frag_data_dens = 0.05,
                                                data_as_Rle = FALSE)
-  data_rle <- get_molecule_data_list_from_bams(bamfiles = "QuasR_test.bam",
-                                                     samplenames = "quasr_pe",
-                                                     regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
-                                                                                      strand = "+",
-                                                                                      IRanges::IRanges(start = 200,end = 500)),
-                                                     genome = "random_genome_700bp.fa",
-                                                     whichContext ="GCH",
-                                                     remove_nonunique = F,
-                                                     clip_until_nbg = 0L,
-                                                     max_bisC_meth = 1,
-                                                     min_frag_data_len = 50L,
-                                                     min_frag_data_dens = 0.05,
-                                                     data_as_Rle = TRUE)
+  data_rle <- get_molecule_data_list_from_bams(bamfiles = quasr_bam,
+                                               samplenames = "quasr_pe",
+                                               regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
+                                                                                strand = "+",
+                                                                                IRanges::IRanges(start = 200,end = 500)),
+                                               genome = test_genome,
+                                               whichContext ="GCH",
+                                               remove_nonunique = F,
+                                               clip_until_nbg = 0L,
+                                               max_bisC_meth = 1,
+                                               min_frag_data_len = 50L,
+                                               min_frag_data_dens = 0.05,
+                                               data_as_Rle = TRUE)
   
   data_vec <- data_vec[match(data_rle$qname,data_vec$qname),]
   
@@ -85,12 +93,18 @@ test_that("get_molecule_data_list_from_bams works for QuasR bam file", {
 
 test_that("get_molecule_data_list_from_bams works for Bismark bam file with indels and soft clipping", {
   
-  bismark_methlist <- get_molecule_data_list_from_bams(bamfiles = "Bismark_test.bam",
+  bism_bam <- system.file("extdata",
+                           "Bismark_test.bam",
+                           package = "fetchNOMe")
+  test_genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
+  
+  
+  bismark_methlist <- get_molecule_data_list_from_bams(bamfiles = bism_bam,
                                                        samplenames = "bismark_pe",
                                                        regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
                                                                                         strand = "+",
                                                                                         IRanges::IRanges(start = 200,end = 500)),
-                                                       genome = "random_genome_700bp.fa",
+                                                       genome = test_genome,
                                                        whichContext ="allC",
                                                        remove_nonunique = F,
                                                        clip_until_nbg = 0L,
@@ -105,8 +119,8 @@ test_that("get_molecule_data_list_from_bams works for Bismark bam file with inde
                  })
   
   ## load expected data
-  dat_reads <- readRDS("Bismark_expected_methylation_data_read_list.rds")
-
+  dat_reads <- readRDS(test_path("testdata","Bismark_expected_methylation_data_read_list.rds"))
+  
   ## test if all data points equal expected values
   expect_true(all(do.call(c,lapply(1:length(rdat),function(i){
     rdat[[i]] == dat_reads[[i]]

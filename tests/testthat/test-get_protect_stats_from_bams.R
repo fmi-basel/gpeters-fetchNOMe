@@ -1,12 +1,15 @@
 test_that("get_protect_stats_from_bams works for QuasR bam file", {
-  #library(GenomicRanges)
+  quasr_bam <- system.file("extdata",
+                           "QuasR_test.bam",
+                           package = "fetchNOMe")
+  test_genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
   
-  quasr_protect_stats <- get_protect_stats_from_bams(bamfiles = "QuasR_test.bam",
+  quasr_protect_stats <- get_protect_stats_from_bams(bamfiles = quasr_bam,
                                                      samplenames = "quasr_pe",
                                                      regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
                                                                                       strand = "+",
                                                                                       IRanges::IRanges(start = 200,end = 500)),
-                                                     genome = "random_genome_700bp.fa",
+                                                     genome = test_genome,
                                                      alignerUsed = "QuasR",
                                                      min_frag_data_len = 0L,
                                                      min_frag_data_dens = 0.0,
@@ -17,20 +20,25 @@ test_that("get_protect_stats_from_bams works for QuasR bam file", {
   quasr_protect_stats$ProtectStats[[1]] <- quasr_protect_stats$ProtectStats[[1]][order(quasr_protect_stats$ProtectStats[[1]][,1],
                                                                                        quasr_protect_stats$ProtectStats[[1]][,2]),]
   
-  quasr_expect_protstats <- readRDS("QuasR_expected_protectstats.rds")
+  quasr_expect_protstats <- readRDS(test_path("testdata","QuasR_expected_protectstats.rds"))
   
   expect_true(all(quasr_protect_stats$ProtectStats[[1]] == quasr_expect_protstats))
 })
 
 
 test_that("get_protect_stats_from_bams works for Bismark bam file", {
-  #library(GenomicRanges)
-  bismark_protect_stats <- get_protect_stats_from_bams(bamfiles = "Bismark_test.bam",
+  
+  bism_bam <- system.file("extdata",
+                          "Bismark_test.bam",
+                          package = "fetchNOMe")
+  test_genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
+  
+  bismark_protect_stats <- get_protect_stats_from_bams(bamfiles = bism_bam,
                                                        samplenames = "bismark_pe",
                                                        regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
                                                                                         strand = "+",
                                                                                         IRanges::IRanges(start = 200,end = 500)),
-                                                       genome = "random_genome_700bp.fa",
+                                                       genome = test_genome,
                                                        alignerUsed = "Bismark",
                                                        min_frag_data_len = 0L,
                                                        min_frag_data_dens = 0.0,
@@ -41,7 +49,7 @@ test_that("get_protect_stats_from_bams works for Bismark bam file", {
   bismark_protect_stats$ProtectStats[[1]] <- bismark_protect_stats$ProtectStats[[1]][order(bismark_protect_stats$ProtectStats[[1]][,1],
                                                                                            bismark_protect_stats$ProtectStats[[1]][,2]),]
   
-  expect_protstats <- readRDS("QuasR_expected_protectstats.rds")
+  expect_protstats <- readRDS(test_path("testdata","QuasR_expected_protectstats.rds"))
   expect_protstats[,3] <- 2*expect_protstats[,3]
   expect_true(all(bismark_protect_stats$ProtectStats[[1]] == expect_protstats))
 })
