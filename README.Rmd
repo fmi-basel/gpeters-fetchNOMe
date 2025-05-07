@@ -54,67 +54,85 @@ You can install the development version of fetchNOMe from [GitHub](https://githu
 devtools::install_github("fmi-basel/gpeters-fetchNOMe")
 ```
 ## Usage 
+
 ``` r
 library(fetchNOMe)
 
-## Define BAM file path
-bam <- system.file("extdata","QuasR_test.bam",package = "fetchNOMe")
+# Define BAM file path
+bam <- system.file("extdata", "QuasR_test.bam", package = "fetchNOMe")
 
-## Define genome FASTA file path
-genome <- system.file("extdata","random_genome_700bp.fa",package = "fetchNOMe")
+# Define genome FASTA file path
+genome <- system.file("extdata", "random_genome_700bp.fa", package = "fetchNOMe")
 
-## extract GCH protection states for a region of interest (ROI)
-GCH_tbl_mat <- get_data_matrix_from_bams(bamfiles = bam,
-																						 samplenames = "quasr_pe",
-																						 regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
-																						 																 strand = "+",
-																						 																 IRanges::IRanges(start = 200,end = 500)),
-																						 genome = genome,
-																						 whichContext ="GCH",
-																						 remove_nonunique = F,
-																						 clip_until_nbg = 0L,
-																						 max_bisC_meth = 1)
-																						 
-## extract WCG endogenous methylation states for a region of interest (ROI)
-WCG_tbl_mat <- get_data_matrix_from_bams(bamfiles = bam,
-																						 samplenames = "quasr_pe",
-																						 regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
-																						 																 strand = "+",
-																						 																 IRanges::IRanges(start = 200,end = 500)),
-																						 genome = genome,
-																						 whichContext ="WCG",
-																						 remove_nonunique = F,
-																						 clip_until_nbg = 0L,
-																						 max_bisC_meth = 1)
+# Extract GCH protection states for a region of interest (ROI)
+GCH_tbl_mat <- get_data_matrix_from_bams(
+  bamfiles          = bam,
+  samplenames       = "quasr_pe",
+  regions           = GenomicRanges::GRanges(
+                        seqnames = "random_genome_700bp",
+                        strand   = "+",
+                        IRanges::IRanges(start = 200, end = 500)
+                      ),
+  genome            = genome,
+  whichContext      = "GCH",
+  remove_nonunique  = FALSE,
+  clip_until_nbg    = 0L,
+  max_bisC_meth     = 1
+)
 
-## extract GCH protection for all molecules within ROI
-GCH_tbl_methlist <- get_molecule_data_list_from_bams(bamfiles = bam,
-                                                     samplenames = "quasr_pe",
-                                                     regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
-                                                                                      strand = "+",
-                                                                                      IRanges::IRanges(start = 200,end = 500)),
-                                                     genome = genome,
-                                                     whichContext ="GCH",
-                                                     remove_nonunique = F,
-                                                     clip_until_nbg = 0L,
-                                                     max_bisC_meth = 1,
-                                                     min_frag_data_len = 50L,
-                                                     min_frag_data_dens = 0.05)
-                                                     
-## extract co-occurrence count tables for footprint spectral analysis
-ctable <- get_ctable_from_bams(bamfiles = bam,
-                                             samplenames = "quasr_pe",
-                                             regions = GenomicRanges::GRanges(seqnames = "random_genome_700bp",
-                                                                              strand = "+",
-                                                                              IRanges::IRanges(start = 200,end = 500)),
-                                             genome = genome,
-                                             alignerUsed = "QuasR",
-                                             min_frag_data_len = 0L,
-                                             min_frag_data_dens = 0.0,
-                                             max_spacing = 300,
-                                             remove_nonunique = F,
-                                             clip_until_nbg = 0L,
-                                             max_bisC_meth = 1)
+# Extract WCG endogenous methylation states for a region of interest (ROI)
+WCG_tbl_mat <- get_data_matrix_from_bams(
+  bamfiles          = bam,
+  samplenames       = "quasr_pe",
+  regions           = GenomicRanges::GRanges(
+                        seqnames = "random_genome_700bp",
+                        strand   = "+",
+                        IRanges::IRanges(start = 200, end = 500)
+                      ),
+  genome            = genome,
+  whichContext      = "WCG",
+  remove_nonunique  = FALSE,
+  clip_until_nbg    = 0L,
+  max_bisC_meth     = 1
+)
+
+# Extract GCH protection for all molecules within ROI
+GCH_tbl_methlist <- get_molecule_data_list_from_bams(
+  bamfiles           = bam,
+  samplenames        = "quasr_pe",
+  regions            = GenomicRanges::GRanges(
+                         seqnames = "random_genome_700bp",
+                         strand   = "+",
+                         IRanges::IRanges(start = 200, end = 500)
+                       ),
+  genome             = genome,
+  whichContext       = "GCH",
+  remove_nonunique   = FALSE,
+  clip_until_nbg     = 0L,
+  max_bisC_meth      = 1,
+  min_frag_data_len  = 50L,
+  min_frag_data_dens = 0.05
+)
+
+# Extract co-occurrence count tables for footprint spectral analysis
+ctable <- get_ctable_from_bams(
+  bamfiles           = bam,
+  samplenames        = "quasr_pe",
+  regions            = GenomicRanges::GRanges(
+                         seqnames = "random_genome_700bp",
+                         strand   = "+",
+                         IRanges::IRanges(start = 200, end = 500)
+                       ),
+  genome             = genome,
+  alignerUsed        = "QuasR",
+  min_frag_data_len  = 0L,
+  min_frag_data_dens = 0.0,
+  max_spacing        = 300,
+  remove_nonunique   = FALSE,
+  clip_until_nbg     = 0L,
+  max_bisC_meth      = 1
+)
+
 																			
 ```
 
